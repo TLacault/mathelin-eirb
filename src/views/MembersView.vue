@@ -76,33 +76,35 @@
             </div>
 
             <div class="member-content">
-              <div class="member-header">
-                <h3 class="member-name">{{ member.firstName }}</h3>
-                <div class="member-status" :class="member.status"></div>
-              </div>
-
-              <p class="member-role">{{ member.role }}</p>
-
-              <div class="member-details">
-                <div class="detail-item" v-if="member.year">
-                  <i class="fas fa-graduation-cap"></i>
-                  <span>Année {{ member.year }}</span>
+              <div class="member-info-section">
+                <div class="member-header">
+                  <h3 class="member-name">{{ member.firstName }}</h3>
+                  <div class="member-status" :class="member.status"></div>
                 </div>
-                <div class="detail-item" v-if="member.clubs.length">
-                  <i class="fas fa-users"></i>
-                  <span>{{ member.clubs.join(", ") }}</span>
-                </div>
-              </div>
 
-              <div class="member-tags">
-                <span
-                  v-for="tag in member.roleTags"
-                  :key="tag"
-                  class="tag"
-                  :class="getTagClass(tag)"
-                >
-                  {{ tag }}
-                </span>
+                <p class="member-role">{{ member.role }}</p>
+
+                <div class="member-details">
+                  <div class="detail-item" v-if="member.year">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Année {{ member.year }}</span>
+                  </div>
+                  <div class="detail-item" v-if="member.clubs.length">
+                    <i class="fas fa-users"></i>
+                    <span>{{ member.clubs.join(", ") }}</span>
+                  </div>
+                </div>
+
+                <div class="member-tags">
+                  <span
+                    v-for="tag in member.roleTags"
+                    :key="tag"
+                    class="tag"
+                    :class="getTagClass(tag)"
+                  >
+                    {{ tag }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -576,8 +578,9 @@ export default {
 .members-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  gap: 2.5rem;
   justify-items: center;
+  align-items: start;
 }
 
 .member-card {
@@ -589,7 +592,7 @@ export default {
   cursor: pointer;
   animation: slideInUp 0.6s ease-out both;
   position: relative;
-  aspect-ratio: 9/16;
+  aspect-ratio: 3/4;
   width: 100%;
   max-width: 280px;
 }
@@ -638,15 +641,27 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.5rem;
+  padding: 0;
   color: white;
+}
+
+.member-info-section {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.3) 80%,
+    transparent 100%
+  );
+  padding: 2rem 1.5rem 1.5rem;
+  margin-top: auto;
 }
 
 .member-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .member-name {
@@ -678,12 +693,12 @@ export default {
   color: var(--dino-orange);
   font-weight: 600;
   font-size: 1.1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .member-details {
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .detail-item {
@@ -706,7 +721,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: auto;
+  margin-top: 0.5rem;
 }
 
 .tag {
@@ -1035,12 +1050,12 @@ export default {
   }
 
   .member-card {
-    aspect-ratio: 9/16;
+    aspect-ratio: 3/4;
     max-width: 250px;
   }
 
-  .member-content {
-    padding: 1rem;
+  .member-info-section {
+    padding: 1.5rem 1rem 1rem;
   }
 
   .modal-content {
@@ -1062,8 +1077,8 @@ export default {
     font-size: 2rem;
   }
 
-  .member-content {
-    padding: 0.8rem;
+  .member-info-section {
+    padding: 1.2rem 0.8rem 0.8rem;
   }
 
   .member-name {
@@ -1085,11 +1100,6 @@ export default {
 
   .member-tags {
     justify-content: center;
-  }
-
-  .tag {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
   }
 }
 </style>
