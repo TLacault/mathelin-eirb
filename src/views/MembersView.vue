@@ -286,6 +286,19 @@ export default {
           description:
             "Emma apporte une énergie créative incroyable à tous nos événements. Elle sait comment animer une soirée !",
         },
+        {
+          id: 5,
+          firstName: "Bebel",
+          role: "Pole Blague",
+          year: 2,
+          major: "Info",
+          profilePicture: "bebel.jpg",
+          roleTags: ["Pole Blague", "Goat"],
+          clubs: ["Pole Blague", "Theatre"],
+          interests: ["Psychologie", "Théâtre", "Musique", "Lecture"],
+          description:
+            "Emma apporte une énergie créative incroyable à tous nos événements. Elle sait comment animer une soirée !",
+        },
       ],
     };
   },
@@ -509,7 +522,15 @@ export default {
 /* Members Grid */
 .members-grid-section {
   padding: 3rem 0;
-  background: white;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url("@/assets/background_3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .container {

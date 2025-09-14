@@ -281,12 +281,14 @@ export default {
   width: 100%;
   height: 100%;
   opacity: 1;
+  z-index: 10;
 }
 
 .floating-dinos {
   position: absolute;
   width: 100%;
   height: 100%;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 
 .dino {
@@ -341,7 +343,7 @@ export default {
   position: absolute;
   width: 8px;
   height: 8px;
-  background: radial-gradient(circle, var(--dino-orange) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--dino-orange) 0%, transparent 100%);
   border-radius: 50%;
   animation: twinkle 3s ease-in-out infinite;
   box-shadow: 0 0 20px var(--dino-orange);
@@ -391,7 +393,7 @@ export default {
   }
   50% {
     opacity: 1;
-    transform: scale(1.5);
+    transform: scale(2);
   }
 }
 
@@ -411,7 +413,7 @@ export default {
   font-size: 4rem;
   font-weight: normal;
   color: var(--text-light);
-  margin-bottom: -1rem;
+  margin-bottom: -4rem;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
   animation: slideInDown 1s ease-out;
 }
@@ -424,10 +426,11 @@ export default {
 }
 
 .hero-subtitle {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: var(--text-light);
   opacity: 1;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.5;
   animation: slideInUp 1s ease-out 0.3s both;
 }
 
@@ -462,10 +465,11 @@ export default {
 }
 
 .event-name {
-  color: var(--text-dark);
-  font-size: 5rem;
+  color: var(--text-light);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 8rem;
   font-weight: normal;
-  margin-bottom: 1rem;
+  margin-bottom: -1rem;
   font-family: "Jurassic Park", cursive;
 }
 
@@ -473,6 +477,7 @@ export default {
   color: var(--text-light);
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   line-height: 1.6;
 }
 
@@ -486,7 +491,7 @@ export default {
   align-items: center;
   gap: 0.5rem;
   color: var(--text-light);
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   font-weight: 600;
 }
 
@@ -840,6 +845,7 @@ export default {
 @media (max-width: 768px) {
   .hero-title {
     font-size: 3rem;
+    margin-bottom: -1rem;
   }
 
   .hero-subtitle {
