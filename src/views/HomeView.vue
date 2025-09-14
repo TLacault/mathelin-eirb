@@ -26,7 +26,7 @@
               <span class="highlight">Mathelin'eirb</span>
             </h1>
             <p class="hero-subtitle">
-              Le club étudiant le plus préhistorique de l'école ! 🦕
+              Meilleur Club de l'Enseirb >>><br />Aucun débat possible 🦕
             </p>
           </div>
 
@@ -262,9 +262,10 @@ export default {
 /* Hero Section */
 .hero-section {
   position: relative;
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   background: linear-gradient(rgba(45, 80, 22, 0.8), rgba(74, 124, 89, 0.8)),
     url("@/assets/background_2.jpg");
   background-size: cover;
@@ -279,7 +280,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.1;
+  opacity: 1;
 }
 
 .floating-dinos {
@@ -432,16 +433,18 @@ export default {
 
 /* Event Banner */
 .event-banner {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.2);
+  outline: 1px solid white;
   border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  padding: 3rem;
+  /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); */
   backdrop-filter: blur(10px);
   animation: slideInUp 1s ease-out 0.6s both;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
   align-items: center;
+  margin-bottom: 5rem;
 }
 
 .event-content {
@@ -449,7 +452,8 @@ export default {
 }
 
 .event-title {
-  color: var(--primary-green);
+  color: var(--text-light);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -459,14 +463,14 @@ export default {
 
 .event-name {
   color: var(--text-dark);
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: normal;
   margin-bottom: 1rem;
   font-family: "Jurassic Park", cursive;
 }
 
 .event-description {
-  color: var(--text-dark);
+  color: var(--text-light);
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
   line-height: 1.6;
@@ -481,7 +485,8 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--secondary-green);
+  color: var(--text-light);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   font-weight: 600;
 }
 
@@ -532,8 +537,11 @@ export default {
 
 .container {
   max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
-  padding: 0 2rem;
 }
 
 .section-title {
@@ -880,11 +888,11 @@ export default {
   }
 
   .event-banner {
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
   .event-name {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 
   .countdown {

@@ -3,10 +3,10 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
       <div class="nav-container">
-        <div class="nav-logo">
+        <router-link to="/" class="nav-logo" @click="closeMobileMenu">
           <img src="@/assets/logo.jpg" alt="Logo" class="nav-logo-img" />
           <h1 class="club-name">Mathelin'eirb</h1>
-        </div>
+        </router-link>
 
         <div class="nav-menu" :class="{ active: mobileMenuOpen }">
           <router-link to="/" class="nav-link" @click="closeMobileMenu">
@@ -27,10 +27,19 @@
           </a>
         </div>
 
-        <div class="mobile-menu-toggle" @click="toggleMobileMenu">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div class="mobile-controls">
+          <a
+            href="#"
+            class="mobile-social-link telegram"
+            title="Rejoignez notre Telegram"
+          >
+            <i class="fab fa-telegram"></i>
+          </a>
+          <div class="mobile-menu-toggle" @click="toggleMobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </div>
     </nav>
@@ -43,8 +52,8 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
-        <p>&copy; 2024 mathelin'eirb - Club étudiant</p>
-        <p>🦕 Créé avec passion par Matheline et ses amis 🦕</p>
+        <p>&copy; 2025 Mathelin'eirb</p>
+        <p>🦕 Créé avec passion par Tim et un peu d'IA 🦕</p>
       </div>
     </footer>
   </div>
@@ -142,6 +151,12 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
 }
 
 .nav-logo-img {
@@ -221,8 +236,34 @@ export default {
   box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
 }
 
-.mobile-menu-toggle {
+.mobile-controls {
   display: none;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--dino-orange);
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+}
+
+.mobile-social-link:hover {
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+}
+
+.mobile-menu-toggle {
+  display: flex;
   flex-direction: column;
   cursor: pointer;
   gap: 4px;
@@ -246,22 +287,34 @@ export default {
     font-size: 1.4rem;
   }
 
+  .nav-social {
+    display: none;
+  }
+
+  .mobile-controls {
+    display: flex;
+  }
+
   .nav-menu {
     position: fixed;
-    top: 70px;
-    left: -100%;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: calc(100vh - 70px);
-    background: var(--primary-green);
+    height: 100vh;
+    background: rgba(45, 80, 22, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 2rem;
-    transition: left 0.3s ease;
+    padding-top: 5rem;
+    transition: transform 0.3s ease;
     gap: 1rem;
+    transform: translateY(-100%);
+    z-index: 999;
   }
 
   .nav-menu.active {
-    left: 0;
+    transform: translateY(0);
   }
 
   .nav-link {
@@ -269,10 +322,6 @@ export default {
     padding: 1rem 2rem;
     width: 80%;
     text-align: center;
-  }
-
-  .mobile-menu-toggle {
-    display: flex;
   }
 
   .mobile-menu-toggle.active span:nth-child(1) {

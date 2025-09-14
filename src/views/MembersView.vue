@@ -7,9 +7,7 @@
           <h1 class="page-title">
             Nos Membres <span class="dino-emoji">🦕</span>
           </h1>
-          <p class="page-subtitle">
-            Découvrez la famille préhistorique de mathelin'eirb !
-          </p>
+          <p class="page-subtitle">Découvrez nos dinausores de salopard !</p>
           <div class="members-stats">
             <div class="stat">
               <span class="stat-number">{{ members.length }}</span>
@@ -79,19 +77,11 @@
               <div class="member-info-section">
                 <div class="member-header">
                   <h3 class="member-name">{{ member.firstName }}</h3>
-                  <div class="member-status" :class="member.status"></div>
-                </div>
-
-                <p class="member-role">{{ member.role }}</p>
-
-                <div class="member-details">
-                  <div class="detail-item" v-if="member.year">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Année {{ member.year }}</span>
-                  </div>
-                  <div class="detail-item" v-if="member.clubs.length">
-                    <i class="fas fa-users"></i>
-                    <span>{{ member.clubs.join(", ") }}</span>
+                  <div
+                    class="major-year-pin"
+                    :class="getMajorColor(member.major)"
+                  >
+                    {{ getMajorYearDisplay(member) }}
                   </div>
                 </div>
 
@@ -127,14 +117,36 @@
         </button>
 
         <div class="modal-member">
-          <div class="modal-avatar">
-            <div class="avatar-placeholder large">
-              <i class="fas fa-user"></i>
+          <div class="modal-header">
+            <div class="modal-avatar">
+              <img
+                :src="getProfilePicture(selectedMember.profilePicture)"
+                :alt="selectedMember.firstName"
+                class="modal-profile-pic"
+              />
+            </div>
+            <div class="modal-basic-info">
+              <h2>{{ selectedMember.firstName }}</h2>
+              <div
+                class="modal-major-year"
+                :class="getMajorColor(selectedMember.major)"
+              >
+                {{ getMajorYearDisplay(selectedMember) }}
+              </div>
+              <div class="modal-role-tags">
+                <span
+                  v-for="tag in selectedMember.roleTags"
+                  :key="tag"
+                  class="modal-tag"
+                  :class="getTagClass(tag)"
+                >
+                  {{ tag }}
+                </span>
+              </div>
             </div>
           </div>
 
-          <div class="modal-info">
-            <h2>{{ selectedMember.firstName }}</h2>
+          <div class="modal-content-section">
             <p class="modal-role">{{ selectedMember.role }}</p>
             <p class="modal-description">{{ selectedMember.description }}</p>
 
@@ -147,18 +159,23 @@
                 <i class="fas fa-book"></i>
                 <span>{{ selectedMember.major }}</span>
               </div>
-              <div class="detail-row" v-if="selectedMember.hometown">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>{{ selectedMember.hometown }}</span>
-              </div>
-              <div class="detail-row" v-if="selectedMember.clubs.length">
-                <i class="fas fa-users"></i>
-                <span>{{ selectedMember.clubs.join(", ") }}</span>
+            </div>
+
+            <div class="modal-clubs">
+              <h4>Clubs</h4>
+              <div class="clubs-grid">
+                <span
+                  v-for="club in selectedMember.clubs"
+                  :key="club"
+                  class="club-tag"
+                >
+                  {{ club }}
+                </span>
               </div>
             </div>
 
             <div class="modal-interests">
-              <h4>Centres d'intérêt</h4>
+              <h4>Centres d'interet</h4>
               <div class="interests-grid">
                 <span
                   v-for="interest in selectedMember.interests"
@@ -202,13 +219,11 @@ export default {
           id: 1,
           firstName: "Matheline",
           role: "Fondatrice & Présidente",
-          year: 3,
-          major: "Informatique",
-          hometown: "Paris",
-          status: "active",
-          profilePicture: "dinausor.png",
+          year: 2,
+          major: "Info",
+          profilePicture: "matheline.jpg",
           roleTags: ["Fondateur", "Président"],
-          clubs: ["mathelin'eirb", "BDE", "Informatique"],
+          clubs: ["Informatique"],
           interests: [
             "Leadership",
             "Organisation",
@@ -221,145 +236,62 @@ export default {
         },
         {
           id: 2,
-          firstName: "Alexandre",
+          firstName: "Alexis",
           role: "Vice-Président",
-          year: 3,
-          major: "Génie Civil",
-          hometown: "Lyon",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["Vice-Président", "Logistique"],
-          clubs: ["mathelin'eirb", "Sport", "Génie Civil"],
+          year: 2,
+          major: "Info",
+          profilePicture: "alexis.jpg",
+          roleTags: ["Vice-Président"],
+          clubs: ["Sport", "Génie Civil"],
           interests: ["Sport", "Voyages", "Cuisine", "Cinéma"],
           description:
             "Alexandre est le cerveau logistique du club. Il s'assure que tous nos événements se déroulent parfaitement !",
         },
         {
           id: 3,
-          firstName: "Sophie",
+          firstName: "Eve",
           role: "Trésorière",
           year: 2,
-          major: "Comptabilité",
-          hometown: "Marseille",
-          status: "active",
-          profilePicture: "dinausor.png",
+          major: "Info",
+          profilePicture: "eve.jpg",
           roleTags: ["Trésorier", "Gestion"],
-          clubs: ["mathelin'eirb", "Comptabilité", "Danse"],
+          clubs: ["Comptabilité", "Danse"],
           interests: ["Lecture", "Danse", "Art", "Nature"],
           description:
             "Sophie veille sur les finances du club avec une précision chirurgicale. Rien ne lui échappe !",
         },
         {
           id: 4,
-          firstName: "Thomas",
+          firstName: "Margaux",
           role: "Responsable Communication",
           year: 2,
-          major: "Design Graphique",
-          hometown: "Toulouse",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["Communication", "Design"],
-          clubs: ["mathelin'eirb", "Design", "Photographie"],
+          major: "Info",
+          profilePicture: "margaux.jpg",
+          roleTags: ["Jukebox", "Design"],
+          clubs: ["Design", "Photographie"],
           interests: ["Design", "Photographie", "Musique", "Tech"],
           description:
             "Thomas donne vie à nos idées grâce à ses talents créatifs. Notre identité visuelle lui doit tout !",
         },
         {
           id: 5,
-          firstName: "Emma",
+          firstName: "Tim",
           role: "Responsable Événements",
-          year: 1,
-          major: "Psychologie",
-          hometown: "Nantes",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["Animation", "Événements"],
-          clubs: ["mathelin'eirb", "Théâtre", "Psychologie"],
+          year: 2,
+          major: "Info",
+          profilePicture: "tim.jpg",
+          roleTags: ["Web", "Événements"],
+          clubs: ["Théâtre", "Psychologie"],
           interests: ["Psychologie", "Théâtre", "Musique", "Lecture"],
           description:
             "Emma apporte une énergie créative incroyable à tous nos événements. Elle sait comment animer une soirée !",
-        },
-        {
-          id: 6,
-          firstName: "Lucas",
-          role: "Membre Actif",
-          year: 2,
-          major: "Éducation Physique",
-          hometown: "Bordeaux",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["Sport", "Bien-être"],
-          clubs: ["mathelin'eirb", "Sport", "Nutrition"],
-          interests: ["Sport", "Nutrition", "Voyages", "Cinéma"],
-          description:
-            "Lucas est notre coach sportif personnel. Il nous motive à rester en forme tout en s'amusant !",
-        },
-        {
-          id: 7,
-          firstName: "Camille",
-          role: "Membre Actif",
-          year: 3,
-          major: "Histoire de l'Art",
-          hometown: "Strasbourg",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["Culture", "Arts"],
-          clubs: ["mathelin'eirb", "Histoire", "Musées"],
-          interests: ["Art", "Histoire", "Musées", "Voyages"],
-          description:
-            "Camille nous fait découvrir des trésors culturels cachés. Chaque sortie avec elle est une découverte !",
-        },
-        {
-          id: 8,
-          firstName: "Maxime",
-          role: "Membre Actif",
-          year: 2,
-          major: "Informatique",
-          hometown: "Rennes",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["Tech", "Innovation"],
-          clubs: ["mathelin'eirb", "Gaming", "Informatique"],
-          interests: ["Programmation", "Gaming", "Tech", "Science"],
-          description:
-            "Maxime est notre geek officiel. Il nous aide avec tous nos besoins technologiques !",
-        },
-        {
-          id: 9,
-          firstName: "Léa",
-          role: "Membre Actif",
-          year: 1,
-          major: "Langues Étrangères",
-          hometown: "Montpellier",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["International", "Langues"],
-          clubs: ["mathelin'eirb", "Langues", "International"],
-          interests: ["Langues", "Voyages", "Culture", "Musique"],
-          description:
-            "Léa nous ouvre les portes du monde avec ses connaissances linguistiques et culturelles !",
-        },
-        {
-          id: 10,
-          firstName: "Antoine",
-          role: "Membre Actif",
-          year: 2,
-          major: "Musique",
-          hometown: "Nice",
-          status: "active",
-          profilePicture: "dinausor.png",
-          roleTags: ["Musique", "Spectacle"],
-          clubs: ["mathelin'eirb", "Musique", "DJ"],
-          interests: ["Musique", "Concert", "Composition", "Sport"],
-          description:
-            "Antoine anime nos soirées avec ses talents musicaux. Il est notre DJ officiel !",
         },
       ],
     };
   },
   computed: {
     activeMembers() {
-      return this.members.filter((member) => member.status === "active").length;
+      return this.members.length;
     },
     filteredMembers() {
       let filtered = this.members;
@@ -382,11 +314,10 @@ export default {
       // Apply category filter
       switch (this.activeFilter) {
         case "active":
-          filtered = filtered.filter((member) => member.status === "active");
+          // All members are active now
           break;
         case "favorite":
-          // For now, show all active members as we removed the favorite system
-          filtered = filtered.filter((member) => member.status === "active");
+          // All members are active now
           break;
         case "founding":
           filtered = filtered.filter((member) =>
@@ -436,6 +367,18 @@ export default {
       };
       return tagClasses[tag] || "tag-default";
     },
+    getMajorColor(major) {
+      const majorColors = {
+        Info: "major-info",
+        Elec: "major-elec",
+        Telecom: "major-telecom",
+        MatMeca: "major-matmeca",
+      };
+      return majorColors[major] || "major-default";
+    },
+    getMajorYearDisplay(member) {
+      return `${member.major} ${member.year}A`;
+    },
   },
 };
 </script>
@@ -455,7 +398,7 @@ export default {
 
 .page-title {
   font-family: "Jurassic Park", cursive;
-  font-size: 3.5rem;
+  font-size: 5rem;
   font-weight: normal;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -626,10 +569,8 @@ export default {
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(45, 80, 22, 0.5) 30%,
-    rgba(74, 124, 89, 0.4) 70%,
-    rgba(0, 0, 0, 0.7) 100%
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 100%
   );
   z-index: 2;
 }
@@ -646,75 +587,66 @@ export default {
 }
 
 .member-info-section {
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.6) 50%,
-    rgba(0, 0, 0, 0.3) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   padding: 2rem 1.5rem 1.5rem;
   margin-top: auto;
 }
 
 .member-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.8rem;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
 }
 
 .member-name {
   font-family: "Jurassic Park", cursive;
-  font-size: 1.8rem;
+  font-size: 3rem;
   font-weight: normal;
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin: 0;
 }
 
-.member-status {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid white;
+.major-year-pin {
+  padding: 0.4rem 0.8rem;
+  border-radius: 100px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 
-.member-status.active {
-  background: #4caf50;
+.major-info {
+  background: rgba(33, 150, 243, 0.9);
+  outline: 2px solid rgb(192, 226, 255);
+  color: white;
 }
 
-.member-status.inactive {
-  background: #ccc;
+.major-elec {
+  background: rgba(255, 152, 0, 0.9);
+  outline: 2px solid rgb(255, 217, 166);
+  color: white;
 }
 
-.member-role {
-  color: var(--dino-orange);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+.major-telecom {
+  background: rgba(76, 175, 80, 0.9);
+  outline: 2px solid rgb(163, 255, 166);
+  color: white;
 }
 
-.member-details {
-  margin-bottom: 0.8rem;
+.major-matmeca {
+  background: rgba(156, 39, 176, 0.9);
+  outline: 2px solid rgb(192, 226, 255);
+  color: white;
 }
 
-.detail-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-.detail-item i {
-  color: var(--dino-orange);
-  width: 14px;
-  flex-shrink: 0;
+.major-default {
+  background: rgba(74, 124, 89, 0.9);
+  outline: 2px solid rgb(192, 226, 255);
+  color: white;
 }
 
 .member-tags {
@@ -726,7 +658,7 @@ export default {
 
 .tag {
   padding: 0.3rem 0.7rem;
-  border-radius: 12px;
+  border-radius: 100px;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -818,8 +750,8 @@ export default {
   color: white !important;
 }
 .tag-default {
-  background: rgba(74, 124, 89, 0.9) !important;
-  color: white !important;
+  background: rgba(112, 74, 218, 0.9) !important;
+  color: whitesmoke !important;
 }
 
 /* Empty State */
@@ -858,7 +790,8 @@ export default {
 }
 
 .modal-content {
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 2rem;
   max-width: 600px;
@@ -892,21 +825,80 @@ export default {
 }
 
 .modal-member {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.modal-info h2 {
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--accent-green);
+}
+
+.modal-avatar {
+  flex-shrink: 0;
+}
+
+.modal-profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 4px solid var(--dino-orange);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-basic-info {
+  flex: 1;
+  text-align: left;
+}
+
+.modal-basic-info h2 {
   font-family: "Jurassic Park", cursive;
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-weight: normal;
   color: var(--primary-green);
-  margin: 1rem 0 0.5rem;
+}
+
+.modal-major-year {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: -2rem;
+  margin-bottom: 1rem;
+}
+
+.modal-role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.modal-tag {
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-content-section {
+  text-align: left;
 }
 
 .modal-role {
   color: var(--dino-orange);
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
@@ -924,7 +916,6 @@ export default {
 .detail-row {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
   font-size: 1.1rem;
@@ -936,11 +927,38 @@ export default {
   width: 20px;
 }
 
+.modal-clubs {
+  margin-bottom: 2rem;
+}
+
+.modal-clubs h4 {
+  font-family: "Jurassic Park", cursive;
+  color: var(--primary-green);
+  margin-bottom: -1rem;
+  font-size: 3.5rem;
+  font-weight: normal;
+}
+
+.clubs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.club-tag {
+  padding: 0.5rem 1rem;
+  background: var(--accent-green);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .modal-interests h4 {
   font-family: "Jurassic Park", cursive;
   color: var(--primary-green);
-  margin-bottom: 1rem;
-  font-size: 1.6rem;
+  margin-bottom: -1rem;
+  font-size: 3.5rem;
   font-weight: normal;
 }
 
@@ -948,7 +966,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  justify-content: center;
   margin-bottom: 2rem;
 }
 
@@ -963,7 +980,7 @@ export default {
 
 .modal-social {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .social-btn {
@@ -1027,7 +1044,7 @@ export default {
 /* Responsive Design */
 @media (max-width: 768px) {
   .page-title {
-    font-size: 2.5rem;
+    font-size: 4rem;
   }
 
   .members-stats {
@@ -1063,8 +1080,23 @@ export default {
     padding: 1.5rem;
   }
 
-  .modal-info h2 {
-    font-size: 1.5rem;
+  .modal-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .modal-basic-info {
+    text-align: center;
+  }
+
+  .modal-basic-info h2 {
+    font-size: 3rem;
+  }
+
+  .modal-profile-pic {
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -1074,7 +1106,7 @@ export default {
   }
 
   .page-title {
-    font-size: 2rem;
+    font-size: 4rem;
   }
 
   .member-info-section {
@@ -1082,7 +1114,7 @@ export default {
   }
 
   .member-name {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
 
   .member-role {
